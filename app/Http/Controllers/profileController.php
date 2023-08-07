@@ -215,6 +215,7 @@ class profileController extends Controller
     {
         $user_id = Auth::user()->id;
         $allorders = Order::where('user_id', $user_id)->get();
+        $data = auth::user();
         // dd($allorders);
         $orderDetails = [];
         $counter = 0;
@@ -255,6 +256,7 @@ class profileController extends Controller
 
                 if (isset($final_amount) && !empty($final_amount) && isset($final_amount->payment_status) && !empty($final_amount->payment_status))
                 {
+                   
                     if (strtolower($final_amount->payment_status) === strtolower('success')) {
                         $totalAmount = $final_amount->transaction_amount;
                         $cgstPercent = env('CGST', 9);
@@ -303,10 +305,10 @@ class profileController extends Controller
             }
 
             $orderDetails[] = $orderData;
-            $data = auth::user();
-
+            
         }
-
+        
+      
         $registration_data = PaymentDataHandling::where('user_id',$user_id)->where('data','Registration_Amount')->first();
         return view('userDashboard.wallet', compact('orderData','registration_data','data'));
     }

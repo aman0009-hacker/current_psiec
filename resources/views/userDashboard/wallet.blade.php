@@ -28,10 +28,12 @@
                                 <tr>
                                     <td>{{ucfirst(trans(Auth::user()->name))." " .ucfirst(trans(Auth::user()->last_name))}}</td>
                                     <td>{!! $registration_data->user_amount ?? "<span style='color:red;font-weight:600'>(Unpaid)</span>" !!}</td>
+                                    @if(!empty($registration_data))
                                     @if($registration_data->payment_status === "SUCCESS")
                                     <td><span style='color:green ;font-weight:600'>(Paid)</span></td>
                                     @else
                                     <td><span  style='color:red;font-weight:600'>(UnPaid)</span></td>
+                                    @endif
                                     @endif
                                 </tr>
 

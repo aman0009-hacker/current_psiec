@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 
+use App\Admin\Actions\OrderDelivered;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -273,23 +274,29 @@ class OrderController extends AdminController
                     $actions->add(new OrderDispatched);
                     $actions->add(new OrderRejected);
                     $actions->add(new OrderPayment);
+                    $actions->add(new OrderDelivered);
                 } else if ($actions->row->status == "Rejected") {
                     $actions->add(new OrderApproved);
                     $actions->add(new OrderDispatched);
                     $actions->add(new OrderPayment);
+                    $actions->add(new OrderDelivered);
                 } else if ($actions->row->status == "Dispatched") {
                     $actions->add(new OrderApproved);
                     $actions->add(new OrderRejected);
                     $actions->add(new OrderPayment);
+                    $actions->add(new OrderDelivered);
                 } else if ($actions->row->status == "New") {
                     $actions->add(new OrderApproved);
                     $actions->add(new OrderDispatched);
                     $actions->add(new OrderRejected);
                     $actions->add(new OrderPayment);
+                    $actions->add(new OrderDelivered);
                 } else if ($actions->row->status == "Payment_Done") {
                     $actions->add(new OrderApproved);
                     $actions->add(new OrderDispatched);
                     $actions->add(new OrderRejected);
+                    $actions->add(new OrderDelivered);
+                    
                 }
             });
             $grid->filter(function ($filter) {

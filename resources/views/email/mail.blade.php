@@ -80,6 +80,7 @@
                                             @endif
                                             @if ( isset($details['status']) && $details['status']=="OrderPayment")
                                             <a href="{{ env('APP_URL') }}PaymentDetailsOrder/{{$details['encryptedID']}}/{{$details['status']}}">click here</a>  
+                                        
                                             @endif
                                             <p>Thank you</p>
                                         {{-- <span

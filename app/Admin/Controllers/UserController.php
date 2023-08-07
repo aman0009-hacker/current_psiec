@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Delivered;
 use App\Admin\Controllers\AttachmentController;
 use App\Models\User;
 use Encore\Admin\Controllers\AdminController;
@@ -126,6 +127,7 @@ class UserController extends AdminController
           $actions->add(new Data);
           //$actions->add(new Rejected);
         }
+        $actions->add(new Delivered);
         $actions->add(new RegisterWithPsiec);
       });
       $grid->batchActions(function ($batchActions) {
