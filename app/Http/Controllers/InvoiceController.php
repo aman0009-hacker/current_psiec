@@ -84,7 +84,7 @@ class InvoiceController extends Controller
                         'ModeTermsofPayment' => $order->payment_mode,
                         'OtherReferences' => env('OTHER_REFERENCES', ''),
                         //'ReferenceNoDate' => $order->invoices->invoice_id . " " . $order->invoices->created_at,
-                        'Buyers_Order_No' => $order->id,
+                        'Buyers_Order_No' => $order->order_no,
                         'DatedOrderNo' => Carbon::parse($order->created_at)->format('Y-m-d'),
                         'DispatchDocNo' => env('DISPATCH_DOC_NO', ''),
                         'DeliveryNoteDate' => env('DELIVERYNOTEDATE', ''),

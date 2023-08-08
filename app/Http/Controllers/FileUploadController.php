@@ -160,11 +160,22 @@ class FileUploadController extends Controller
             if (isset($query) && $query > 0) {
                 // $stateUpdate = DB::table('users')->where('id', $currentId)->update(['state' => 4]);
                 $stateUpdate = User::find($currentId);
+                $email = User::find($currentId)->email;
+
                 if ($stateUpdate) {
                     $stateUpdate->state = 4;
                     $stateUpdate->save();
                 }
                 if (isset($stateUpdate)) {
+                    $details=[
+                        'email' => 'PSIEC ADMIN PANEL',
+                        'body' => 'Congratulations!!! You are succcesfully registered.Your Registration is Pending for
+                        approval within 7 days. After
+                        approval you can pay the
+                        Registration fee Rupees 10,000/-',
+                    ];
+                    \Mail::to($email)->send(new \App\Mail\PSIECMail($details));
+
                     return redirect()->route('updatedDocument')->with(['currentId' => $currentId, "data" => "success"]);
                 }
             } else {

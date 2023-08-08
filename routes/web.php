@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\sendingEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OTPHandleController;
 use App\Http\Controllers\DocumentProcessController;
@@ -168,7 +169,8 @@ Route::post('checkurlIndex', [App\Admin\Controllers\CustomPageController::class,
     Route::any("/orderProcess", [OrderProcessController::class, 'index'])->name('orderProcess');
     Route::post('/payment/process/verify/extra/js', [OrderProcessController::class, 'jspart']);
     Route::post("/payment/process/data/order/complete", [PaymentController::class, 'paymentProcessOrderComplete'])->name('payment.process.data.order.complete');
-    Route::any("/payment/complete/process", [PaymentController::class, 'paymentComplete'])->name('payment.complete.process');
+    // Route::any("/payment/complete/process", [PaymentController::class, 'paymentComplete'])->name('payment.complete.process');
+    Route::get("/payment/complete/process/{id}/{status}", [PaymentController::class, 'paymentCompletion'])->name('payment.complete.process');
     Route::get('profile', [profileController::class, 'profile'])->name('userprofile');
     Route::post('userdata', [profileController::class, 'storedata'])->name('userimage');
     Route::post('remove', [profileController::class, 'removeimage'])->name('removeimage');
@@ -193,3 +195,7 @@ Route::get('imagestore/{maindata}',[FileUploadController::class, 'storeimagecomm
 Route::get('get-cities/{stateId}', [PaymentController::class, 'getCities']);
 
 Route::get('wallet', [profileController::class, 'wallet'])->name('wallet');
+
+
+
+Route::get('sendthemail',[sendingEmail::class,'king']);

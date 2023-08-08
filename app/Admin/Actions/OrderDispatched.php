@@ -13,6 +13,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Encore\Admin\Layout\Row;
+use Illuminate\Support\Facades\Crypt;
 
 class OrderDispatched extends RowAction
 {
@@ -36,6 +37,7 @@ class OrderDispatched extends RowAction
             //dd($id);
             if (isset($id) && !empty($id)) {
                 $data = Order::find($id);
+                $encryptedID=Crypt::encryptString($data->id);
                 $data->status = "Dispatched";
                 $data->save();
                 //Session::put('txtOrderGlobalModalCompleteID',$id);
@@ -62,7 +64,8 @@ class OrderDispatched extends RowAction
                         $details = [
                             'email' => 'PSIEC ADMIN PANEL',
                             'body' => 'Congratulations!!! Your order no ' . $model->order_no . ' is ready for dispatch. kindly make a full payment against invoice',
-                            //'encryptedID' => $encryptedID,
+                            'encryptedID' => $encryptedID,
+                            'status'=>'Dispatched'
                         ];
                         \Mail::to($emailDataName)->send(new \App\Mail\PSIECMail($details));
                         //\mail::to('csanwalit@gmail.com')->send(new \App\Mail\PSIECMail($details));
