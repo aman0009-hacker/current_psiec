@@ -32,7 +32,9 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
+    Fortify::verifyEmailView(function(){
+     return view('auth.verify-email');
+     });
     }
 
     /**
