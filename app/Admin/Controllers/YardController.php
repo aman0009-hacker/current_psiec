@@ -155,7 +155,7 @@ class YardController extends AdminController
                 $query->select('supervisorid')
                     ->from('yards')->whereNotNull('supervisorid');
             })
-            ->pluck('name', 'id');
+            ->pluck('name');
         $form->select('supervisorid', "__Supervisor UserName")->options($supervisors);
         $form->footer(function ($footer) {
             $footer->disableViewCheck();
