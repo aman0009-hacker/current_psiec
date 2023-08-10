@@ -80,6 +80,7 @@ class OrderController extends AdminController
             // {
             // });
             $grid->column('status', __('Status'));
+            $grid->column('order_no',__('Order_no'));
             // $grid->column('payment_mode', __('Payment Mode'));
 
             $grid->column('payment_mode', __('Payment Mode'))->display(function ($title) {
@@ -98,7 +99,7 @@ class OrderController extends AdminController
                     return $value->transaction_amount ?? "Done";
                 } else {
                     return "Pending";
-                }
+                }   
             });
             $grid->column('final_payment_status', __('Final Payment'))->display(function ($value) {
                 if ($value == "verified") {

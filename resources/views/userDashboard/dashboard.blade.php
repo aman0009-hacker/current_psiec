@@ -57,7 +57,7 @@
   fill:transparent!important;
 }
 
-/ changes today /
+
 #donut_single div[dir="ltr"]
 {
   width:100%!important;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\newupdatedcontroller;
 use App\Http\Controllers\sendingEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OTPHandleController;
@@ -79,6 +80,7 @@ Route::post('checkurlIndex', [App\Admin\Controllers\CustomPageController::class,
     Route::get('documentProcess', function () {
         return view('components.document-process');
     })->name('documentProcess');
+    // Route::get('documentProcess',[newupdatedcontroller::class,'main'])->name('documentProcess');
     Route::get('signUpSubmit', function () {
         return view('auth.signUpSubmit');
     })->name('signUpSubmit');
@@ -169,7 +171,7 @@ Route::post('checkurlIndex', [App\Admin\Controllers\CustomPageController::class,
     Route::any("/orderProcess", [OrderProcessController::class, 'index'])->name('orderProcess');
     Route::post('/payment/process/verify/extra/js', [OrderProcessController::class, 'jspart']);
     Route::post("/payment/process/data/order/complete", [PaymentController::class, 'paymentProcessOrderComplete'])->name('payment.process.data.order.complete');
-    // Route::any("/payment/complete/process", [PaymentController::class, 'paymentComplete'])->name('payment.complete.process');
+    Route::any("/payment/complete/process", [PaymentController::class, 'paymentComplete'])->name('payment.complete.process');
     Route::get("/payment/complete/process/{id}/{status}", [PaymentController::class, 'paymentCompletion'])->name('payment.complete.process');
     Route::get('profile', [profileController::class, 'profile'])->name('userprofile');
     Route::post('userdata', [profileController::class, 'storedata'])->name('userimage');
@@ -199,3 +201,4 @@ Route::get('wallet', [profileController::class, 'wallet'])->name('wallet');
 
 
 Route::get('sendthemail',[sendingEmail::class,'king']);
+Route::get('emailagain','App\Http\Controllers\approved_for_document@data');

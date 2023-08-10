@@ -47,7 +47,7 @@
                   show: true
                 }
               },
-              labels: ['Approved', 'New', 'Rejected'],
+              labels: ['New', 'Approved', 'Rejected'],
               legend: {
                 position: 'bottom'
               },

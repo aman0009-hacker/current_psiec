@@ -610,15 +610,22 @@ class PaymentController extends Controller
         $address = Address::where('user_id', Auth::user()->id)->latest()->first();
         $states = State::all();
         $txtOrderGlobalModalCompleteID = $request->input('txtOrderGlobalModalCompleteID');
+
+        $amount = Order::where('id',$txtOrderGlobalModalCompleteID)->pluck('amount');
+       
+       
+       
         //dd($txtOrderGlobalModalCompleteID);
         Session::forget('txtOrderGlobalModalCompleteID');
         if (Session::has('txtOrderGlobalModalCompleteIDAlternative') && Session::get('txtOrderGlobalModalCompleteIDAlternative') != null && Session::get('txtOrderGlobalModalCompleteIDAlternative') != "") {
             Session::put('txtOrderGlobalModalCompleteID', Session::get('txtOrderGlobalModalCompleteIDAlternative') ?? '');
+            
         } else {
             Session::put('txtOrderGlobalModalCompleteID', $txtOrderGlobalModalCompleteID ?? '');
         }
         // if (isset($txtOrderGlobalModalCompleteID) && !empty($txtOrderGlobalModalCompleteID)) {
-        return view('components.order-complete-process', compact('txtOrderGlobalModalCompleteID','states','address'));
+
+        return view('components.order-complete-process', compact('txtOrderGlobalModalCompleteID','states','address','amount'));
         // }
     }
 
@@ -659,6 +666,8 @@ class PaymentController extends Controller
 
     public function paymentCompleteProcessAddress(Request $request)
     {
+
+        
         try {
             $validator1 = Validator::make(
                 $request->all(),
@@ -700,12 +709,16 @@ class PaymentController extends Controller
                 }
             }
             $orderId = $request->input('txtOrderGlobalModalCompleteIDValue') ?? '';
+          
             //save order id
             Session::put('txtOrderGlobalModalCompleteIDAlternative', $orderId ?? '');
+
+
             //save order id
             // $orderId = 25;
             $shippingState = State::where('id', $request->shipping_state)->first();
             if (isset($orderId) && !empty($orderId)) {
+
                 $address = new Address();
                 $address->user_id = Auth::user()->id ?? '';
                 $address->order_id = $orderId;

@@ -88,6 +88,94 @@ class FileUploadController extends Controller
                 // Redirect back with input data and errors
                 return redirect()->route('documentProcess')->withInput()->withErrors($validator);
             }
+
+
+
+            // $ggs = $gm = $git = $gad = $gpan = $gut = 0;
+            // $attachmenting = Attachment::where('user_id', $currentId)->get();
+            
+      
+            // foreach($attachmenting as $singleattachement)
+            // {
+                
+            //     if($singleattachement->fileno===null && $request->gstFile!==null && $singleattachement->file_type == "gstfile")
+            //     {
+                   
+                
+            //         $ggs=1;
+            //     }
+            //     if($singleattachement->fileno===null && $request->msmeFile!==null && $singleattachement->file_type == "msmefile")
+            //     {
+            //         $gm=1;
+            //     }
+            //     if($singleattachement->fileno===null && $request->itrFile!==null && $singleattachement->file_type == "itrfile")
+            //     {
+                   
+            //         $git=1;
+            //     }
+            //     if($singleattachement->fileno===null && $request->aadharFile!==null && $singleattachement->file_type == "aadharfile")
+            //     {
+            //         $gad=1;
+            //     }
+            //     if($singleattachement->fileno===null && $request->panFile!==null && $singleattachement->file_type == "panfile")
+            //     {
+                
+            //         $gpan=1;
+            //     }
+            //     if($singleattachement->fileno===null && $request->utilityFile!==null && $singleattachement->file_type == "utilityfile")
+            //     {
+        
+            //         $gut=1;
+            //     }
+            
+
+                
+            // }
+            // if( $ggs==1)
+            // {
+              
+            //     $gstval = 'required|mimes:jpeg,png,jpg,zip,pdf|max:5000'; 
+            // }
+            // if($gm==1)
+            // {
+            //     $gmval = 'required|mimes:jpeg,png,jpg,zip,pdf|max:5000';    
+            // }
+            // if( $git==1)
+            // {
+            //     $gitval = 'required|mimes:jpeg,png,jpg,zip,pdf|max:5000'; 
+            // }
+            // if( $gad==1)
+            // {
+            //     $gadtval = 'required|mimes:jpeg,png,jpg,zip,pdf|max:5000'; 
+            // }
+            // if( $gpan==1)
+            // {
+            //     $gpanval = 'required|mimes:jpeg,png,jpg,zip,pdf|max:5000'; 
+            // }
+            // if( $gut==1)
+            // {
+
+            //     $gutval = 'required|mimes:jpeg,png,jpg,zip,pdf|max:5000'; 
+            // }
+
+            // $rules1 = [
+            //     'gstFile' => $gstval,
+            //     'msmeFile' => $gmval,
+            //     'itrFile' => $gitval,
+            //     'aadharFile' => $gadtval,
+            //     'panFile' => $gpanval,
+            //     'utilityFile' => $gutval,
+            // ];
+
+            // $validators = Validator::make($request->all(), $rules1);
+            // // Check if validation fails
+            // if ($validator->fails()) {
+            //     // Redirect back with input data and errors
+            //     return redirect()->route('documentProcess')->withInput()->withErrors($validators);
+            // }
+          
+
+
             //new code added
             $fileName = "";
             $fileNameMsme = "";
@@ -184,6 +272,7 @@ class FileUploadController extends Controller
         } catch (\Throwable $ex) {
             Log::info($ex->getMessage());
             return redirect()->route('documentProcess')->withInput()->withErrors();
+            
 
         }
     }

@@ -34,6 +34,10 @@
   integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="{{asset('js/dashboard.js')}}"></script>
+
+  <style>
+   
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">

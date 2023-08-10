@@ -22,7 +22,8 @@ class Kernel extends ConsoleKernel
     {
        
         $schedule->command('demo:cron')
-        ->everySecond();
+        ->dailyAt('16:35');;
+        $schedule->command('register:document')->dailyAt('16:35');;
     }
 
     /**

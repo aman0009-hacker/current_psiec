@@ -293,7 +293,7 @@
                                             <div class="input-group mt-2" id="divPayment">
                                                 <span class="input-group-text">₹</span>
                                                 <input type="number" class="form-control" placeholder="Enter amount"
-                                                    aria-label="Amount" name="amountOrderFinal" id="amountOrderFinal">
+                                                    aria-label="Amount" name="amountOrderFinal" id="amountOrderFinal"value="{{$amount[0] ?? ''}}">
                                                 <span class="input-group-text">.00</span>
                                             </div>
                                         </div>
