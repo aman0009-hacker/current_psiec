@@ -75,6 +75,7 @@
            }
       ?>
       {{-- New Code to show Payment Success Page --}}
+    @include('vendor.sweetalert.alert');
       <div class="row orderhistoryOne-section">
         <div class="col-md-12">
           @foreach ($orders as $index => $order)
