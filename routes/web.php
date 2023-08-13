@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\newupdatedcontroller;
+use App\Http\Controllers\registerUserController;
 use App\Http\Controllers\sendingEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OTPHandleController;
@@ -32,6 +33,10 @@ use App\Http\Controllers\InvoiceController;
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+Route::post('/registering',[registerUserController::class,'index'])->name('registerUser');
+
+
 Route::get('/home', function () {
     return view('home');
 })->name('/home');

@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 class User extends Authenticatable implements MustVerifyEmail
+// class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, LogsActivity;
 
@@ -44,6 +45,7 @@ class User extends Authenticatable implements MustVerifyEmail
         //'otp',
         //'otp_generated_at'
     ];
+   
 
 
 

@@ -632,26 +632,36 @@ class PaymentController extends Controller
     public function paymentCompletion(Request $request,$id,$status)
     {
 
-        $order_id=Crypt::decryptString($id);
         
-
-         // $txtOrderGlobalModalCompleteID = $request->input('txtOrderGlobalModalCompleteID');
-        // Session::forget('txtOrderGlobalModalCompleteID');
-        // Session::put('txtOrderGlobalModalCompleteID', $txtOrderGlobalModalCompleteID ?? '');
-        //     return view('components.order-complete-process', compact('txtOrderGlobalModalCompleteID'));
-        $address = Address::where('user_id', Auth::user()->id)->latest()->first();
-        $states = State::all();
-        $txtOrderGlobalModalCompleteID =  $order_id;
-        //dd($txtOrderGlobalModalCompleteID);
-        Session::forget('txtOrderGlobalModalCompleteID');
-        if (Session::has('txtOrderGlobalModalCompleteIDAlternative') && Session::get('txtOrderGlobalModalCompleteIDAlternative') != null && Session::get('txtOrderGlobalModalCompleteIDAlternative') != "") {
-            Session::put('txtOrderGlobalModalCompleteID', Session::get('txtOrderGlobalModalCompleteIDAlternative') ?? '');
-        } else {
-            Session::put('txtOrderGlobalModalCompleteID', $txtOrderGlobalModalCompleteID ?? '');
+        
+        if(Auth::check())
+        {
+            $order_id=Crypt::decryptString($id);
+            
+            // $txtOrderGlobalModalCompleteID = $request->input('txtOrderGlobalModalCompleteID');
+           // Session::forget('txtOrderGlobalModalCompleteID');
+           // Session::put('txtOrderGlobalModalCompleteID', $txtOrderGlobalModalCompleteID ?? '');
+           //     return view('components.order-complete-process', compact('txtOrderGlobalModalCompleteID'));
+           $address = Address::where('user_id', Auth::user()->id)->latest()->first();
+         
+           $states = State::all();
+           $txtOrderGlobalModalCompleteID =  $order_id;
+           //dd($txtOrderGlobalModalCompleteID);
+           Session::forget('txtOrderGlobalModalCompleteID');
+           if (Session::has('txtOrderGlobalModalCompleteIDAlternative') && Session::get('txtOrderGlobalModalCompleteIDAlternative') != null && Session::get('txtOrderGlobalModalCompleteIDAlternative') != "") {
+               Session::put('txtOrderGlobalModalCompleteID', Session::get('txtOrderGlobalModalCompleteIDAlternative') ?? '');
+           } else {
+               Session::put('txtOrderGlobalModalCompleteID', $txtOrderGlobalModalCompleteID ?? '');
+           }
+           // if (isset($txtOrderGlobalModalCompleteID) && !empty($txtOrderGlobalModalCompleteID)) {
+           return view('components.order-complete-process', compact('txtOrderGlobalModalCompleteID','states','address'));
+           // }
         }
-        // if (isset($txtOrderGlobalModalCompleteID) && !empty($txtOrderGlobalModalCompleteID)) {
-        return view('components.order-complete-process', compact('txtOrderGlobalModalCompleteID','states','address'));
-        // }
+        else
+        {
+return view('auth.login');
+        }
+
 
        
     }

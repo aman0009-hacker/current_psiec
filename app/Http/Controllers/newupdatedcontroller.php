@@ -15,6 +15,8 @@ class newupdatedcontroller extends Controller
            $auth_id= \Auth::user()->id;
            $queryDocument = Attachment::where('user_id', $auth_id)->get();
           
+         
+          
            $gstValue = $msmeValue = $itrValue = $aadharValue = $panValue = $utilityValue = 0;
             foreach($queryDocument as $documentcheck)
             {
@@ -39,7 +41,7 @@ class newupdatedcontroller extends Controller
                {
                    $panValue=1;
                }
-               if($documentcheck->fileno==!null && $documentcheck->utilityfile=="utilityfile")
+               if($documentcheck->fileno==!null && $documentcheck->file_type=="utilityfile")
                {
                    $utilityValue=1;
                }
@@ -54,6 +56,7 @@ class newupdatedcontroller extends Controller
                "panfile"=>$panValue,
                "utilityfile"=>$utilityValue,
             ];
+         
             
         }
         else

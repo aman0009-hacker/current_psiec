@@ -28,15 +28,15 @@ class InvoiceController extends Controller
                     $userId = Auth::user()->id;
                     //Code for invoice start
                     $order = Order::with([
-                       
+                       'invoices',
                         'address',
                         'orderItems',
                         'payments'
                     ])->where('user_id',$userId)
                     ->where('id', $orderId)
-                       
-                        ->first();
-    
+                    ->first();
+                    
+                    // dd("ksadn");
                     if (
                         !isset($order->invoices) || $order->invoices()->count() === 0 ||
                         !isset($order->address) || $order->address()->count() === 0 ||
@@ -45,10 +45,10 @@ class InvoiceController extends Controller
                     ) {
                      
 
-                        Alert::warning('Inovice not yet ready');
-                        return redirect()->route('order')->with('error', 'Order not found.');
+                        Alert::warning('Address is not fill yet,Please before make the payment fill the address');
+                        // return redirect()->route('order')->with('error', 'Order not found.');
                     }
-                    // $totalAmount = $order->payments
+                   // $totalAmount = $order->payments
                     //     ->where('data', 'Booking_Final_Amount')
                     //     ->where('payment_status', 'SUCCESS')
                     //     ->value('transaction_amount') ?: ($order->payment_mode === 'cheque' ? $order->check_amount : 0);
@@ -66,8 +66,8 @@ class InvoiceController extends Controller
                     $balance = $completeAmount - $bookingAmount;
                     $pdf = PDF::loadView('components.invoice', [
                         'IRN' => env('IRN', ''),
-                        'AckNo' =>5,
-                        'AckDate' => 5,
+                        'AckNo' => $order->invoices->pluck('invoice_id')[0],
+                        'AckDate' => Carbon::parse($order->invoices->pluck('created_at')[0])->format('Y-m-d'),
                         'PSIECAddress' => json_decode($order->address->psiec_address_ludhiana, true),
                         'shipping_name' => $order->address->shipping_name,
                         'shipping_address' => $order->address->shipping_address,
@@ -85,8 +85,8 @@ class InvoiceController extends Controller
                         'billing_zipcode' => $order->address->billing_zipcode,
                         'billing_gst_number' => $order->address->billing_gst_number,
                         'billing_gst_statecode' => $order->address->billing_gst_statecode,
-                        'InvoiceNo' => 5,
-                        'DatedInvoice' => 6,
+                        'InvoiceNo' => $order->invoices->pluck('invoice_id')[0],
+                        'DatedInvoice' => Carbon::parse($order->invoices->pluck('created_at')[0])->format('Y-m-d'),
                         'DeliveryNote' => env('DELIVERY_NOTE', ''),
                         'ModeTermsofPayment' => $order->payment_mode,
                         'OtherReferences' => env('OTHER_REFERENCES', ''),
@@ -99,7 +99,7 @@ class InvoiceController extends Controller
                         'Destination' => env('DESTINATION', ''),
                         'BillofLandingLR-RRNo' => env('BILL_OF_LANDING_LR_RR_NO', ''),
                         'MotorVehicleNo' => env('MOTOR_VEHICLE_NO', ''),
-                        'TermsofDelivery' => 5,
+                        'TermsofDelivery' => $order->invoices->pluck('delivery_terms')[0],
                         'DescriptionofGoods' => $order->orderItems->map(function ($orderItem) {
                             return [
                                 'id' => $orderItem->id,
@@ -119,11 +119,11 @@ class InvoiceController extends Controller
                         'TCSonSales' => env('TCS_ON_SALES', ''),
                         'Taxablevalue' => $completeAmount,
                         'TotalTaxAmount' => $totalTaxAmount,
-                        'delivery_terms' => 8,
-                        'invoice_date' => 9,
-                        'created_at' => 1,
-                        'updated_at' => 2,
-                        'invoice_id' => 3,
+                        'delivery_terms' => $order->invoices->pluck('delivery_terms')[0],
+                        'invoice_date' => $order->invoices->pluck('invoice_date')[0],
+                        'created_at' => Carbon::parse($order->invoices->pluck('created_at')[0])->format('Y-m-d'),
+                        'updated_at' => Carbon::parse($order->invoices->pluck('updated_at')[0])->format('Y-m-d'),
+                        'invoice_id' => $order->invoices->pluck('invoice_id')[0],
                         'complete_amount' => $completeAmount,
                         'CGSTTAX' => $cgstPercent,
                         'SGSTTAX' => $sgstPercent,
@@ -136,8 +136,8 @@ class InvoiceController extends Controller
                             ];
                         }),
                     ]);
-                   
                     return $pdf->download('invoice.pdf');
+
                 } else if ($PaymentMode == "cheque") {
                     //code for cheque start
                     $orderId = Crypt::decrypt($request->input('orderIDInvoice'));

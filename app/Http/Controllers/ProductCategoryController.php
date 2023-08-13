@@ -95,18 +95,21 @@ class ProductCategoryController extends Controller
             $order = new Order();
             $order->status = "New";
             $order->user_id = Auth::user()->id;
+           
             $order->save();
-
-
+            $users__id=Auth::user()->id;
+           
             //new code to generate invoice start
             if ($order->save() === true) {
                 $lastInvoice = Invoice::orderByDesc('invoice_id')->first();
+                
                 $newInvoiceId = $lastInvoice ? $lastInvoice->invoice_id + 1 : 1;
                 $invoice = new Invoice();
                 //$invoice->id = \Ramsey\Uuid\Uuid::uuid4(); // Generate a new UUID for the 'id' column
                 $invoice->delivery_terms = 'This information has been provided as a resource to familiarize PSIEC rules';
                 $invoice->invoice_date = now();
-                $invoice->order_id = Order::latest('id')->value('id'); // Replace $order with the actual Order model instance
+                $invoice->order_id = Order::where('user_id',$users__id)->latest()->first()->id; // Replace $order with the actual Order model instance
+            
                 $invoice->invoice_id = $newInvoiceId;
                 $invoice->created_at = now();
                 $invoice->updated_at = now();
@@ -301,7 +304,7 @@ class ProductCategoryController extends Controller
                     $order->status = "New";
                     $order->user_id = Auth::user()->id;
                     $order->save();
-
+                    $users__id=Auth::user()->id;
                     //new code to generate invoice start
                     if ($order->save() === true) {
                         $lastInvoice = Invoice::orderByDesc('invoice_id')->first();
@@ -310,7 +313,7 @@ class ProductCategoryController extends Controller
                         //$invoice->id = \Ramsey\Uuid\Uuid::uuid4(); // Generate a new UUID for the 'id' column
                         $invoice->delivery_terms = 'This information has been provided as a resource to familiarize PSIEC rules';
                         $invoice->invoice_date = now();
-                        $invoice->order_id = Order::latest('id')->value('id'); // Replace $order with the actual Order model instance
+                        $invoice->order_id = Order::where('user_id',$users__id)->latest()->first()->id;; // Replace $order with the actual Order model instance
                         $invoice->invoice_id = $newInvoiceId;
                         $invoice->created_at = now();
                         $invoice->updated_at = now();
