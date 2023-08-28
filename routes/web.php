@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\deletingdata;
+use App\Http\Controllers\maindata;
 use App\Http\Controllers\newupdatedcontroller;
 use App\Http\Controllers\registerUserController;
 use App\Http\Controllers\sendingEmail;
-use App\Http\Controllers\testingLogic;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OTPHandleController;
 use App\Http\Controllers\DocumentProcessController;
@@ -210,4 +211,8 @@ Route::get('sendthemail',[sendingEmail::class,'king']);
 Route::get('emailagain','App\Http\Controllers\approved_for_document@data');
 
 
-Route::get('testing',[testingLogic::class,'logic']);
+
+
+
+Route::get('checkbox',[maindata::class,'main']);
+// Route::post('/delete-rows',deletingdata::class,'delete');
