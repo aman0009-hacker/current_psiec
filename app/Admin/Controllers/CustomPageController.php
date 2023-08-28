@@ -230,6 +230,7 @@ class CustomPageController extends AdminController
             ->select('comments.*')
             ->first();
         $admin_id = $queryData->admin_id;
+        // dd($admin_id);
         if (isset($messageData) && !empty($messageData)) {
             $data = new Comments;
             $data->admin_id = $admin_id;

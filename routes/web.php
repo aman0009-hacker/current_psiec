@@ -3,6 +3,7 @@
 use App\Http\Controllers\newupdatedcontroller;
 use App\Http\Controllers\registerUserController;
 use App\Http\Controllers\sendingEmail;
+use App\Http\Controllers\testingLogic;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OTPHandleController;
 use App\Http\Controllers\DocumentProcessController;
@@ -207,3 +208,6 @@ Route::get('wallet', [profileController::class, 'wallet'])->name('wallet');
 
 Route::get('sendthemail',[sendingEmail::class,'king']);
 Route::get('emailagain','App\Http\Controllers\approved_for_document@data');
+
+
+Route::get('testing',[testingLogic::class,'logic']);
