@@ -50,14 +50,9 @@ class DemoCron extends Command
             
          
             
-            if($daysLeft <= 10)
+            if($daysLeft <= 10 && $daysLeft>=0)
             {
-               if($daysLeft === 0)
-               {
-                continue;
-               }
-               else
-               {
+               
                
                 $user = User::find($queen->user_id);
                 $mail=$user->email;
@@ -68,10 +63,11 @@ class DemoCron extends Command
               
             ];
             \Mail::to($mail)->send(new \App\Mail\PSIECMail($details));
-               }
+            
+            }
              
             }
         }
 
     }
-}
+

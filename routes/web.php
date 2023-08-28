@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\deletingdata;
+use App\Http\Controllers\maindata;
 use App\Http\Controllers\newupdatedcontroller;
 use App\Http\Controllers\registerUserController;
 use App\Http\Controllers\sendingEmail;
@@ -207,3 +209,10 @@ Route::get('wallet', [profileController::class, 'wallet'])->name('wallet');
 
 Route::get('sendthemail',[sendingEmail::class,'king']);
 Route::get('emailagain','App\Http\Controllers\approved_for_document@data');
+
+
+
+
+
+Route::get('checkbox',[maindata::class,'main']);
+// Route::post('/delete-rows',deletingdata::class,'delete');

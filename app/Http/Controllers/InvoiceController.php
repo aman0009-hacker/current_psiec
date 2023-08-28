@@ -19,6 +19,7 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         try {
+            dd("askdj");
             $orderId = Crypt::decrypt($request->input('orderIDInvoice'));
             if (isset($orderId) && !empty($orderId)) {
                 //dd(Crypt::decrypt($orderIDInvoice));
@@ -139,6 +140,7 @@ class InvoiceController extends Controller
                     return $pdf->download('invoice.pdf');
 
                 } else if ($PaymentMode == "cheque") {
+                  
                     //code for cheque start
                     $orderId = Crypt::decrypt($request->input('orderIDInvoice'));
                     $userId = Auth::user()->id;
